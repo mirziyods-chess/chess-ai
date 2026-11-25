@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <main class="container">
+        <h1>♟ Chess AI</h1>
+        <p>Play chess against artificial intelligence.</p>
+
+        <div class="game">
+            <div id="board" class="board"></div>
+
+            <div class="controls">
+                <label for="level">AI Difficulty</label>
+                <select id="level">
+                    <option value="1">Easy</option>
+                    <option value="2" selected>Medium</option>
+                    <option value="3">Hard</option>
+                </select>
+                <button id="flipBoard">Flip Board</button>
+                <button id="newGame">New Game</button>
+                <button id="undo">Undo</button>
+                <button id="analyze">Analyze Position</button>
+
+                <h3>Status</h3>
+                <p id="status">White to move</p>
+                <h3>AI Evaluation</h3>
+                <p id="evaluation">Click Analyze Position</p>
+
+                <h3>Move History</h3>
+                <ol id="history"></ol>
+                <h3>Captured Pieces</h3>
+
+                <div class="captured-section">
+                     <p>White captured:</p>
+                     <div id="capturedByWhite" class="captured-pieces"></div>
+
+                     <p>Black captured:</p>
+                     <div id="capturedByBlack" class="captured-pieces"></div>
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script src="/static/script.js"></script>
+</body>
+</html>

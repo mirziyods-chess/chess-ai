@@ -1,0 +1,288 @@
+
+/* ==============================
+   GLOBAL STYLES
+============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    background: #17191f;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+h1 {
+    color: #70d6a5;
+}
+
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+/* ==============================
+   CHESSBOARD
+============================== */
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-rows: repeat(8, minmax(0, 1fr));
+
+    width: min(80vw, 480px);
+    aspect-ratio: 1 / 1;
+
+    border: 4px solid #333;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.square {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: clamp(20px, 5vw, 38px);
+
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Board colors */
+
+.light {
+    background: #f0d9b5;
+}
+
+.dark {
+    background: #b58863;
+}
+
+/* Selected square */
+
+.square.selected {
+    background: #a5c95a !important;
+}
+
+/* Legal moves */
+
+.square.legal-move {
+    background: #a5c95a !important;
+    box-shadow: inset 0 0 0 4px rgba(40, 100, 40, 0.35);
+}
+
+/* ==============================
+   CHESS COORDINATES
+============================== */
+
+.square::before,
+.square::after {
+    position: absolute;
+    z-index: 2;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    pointer-events: none;
+    color: #333;
+}
+
+/* Normal board: a-h */
+
+.square:nth-child(n+57)::after {
+    content: attr(data-file);
+
+    bottom: 2px;
+    right: 4px;
+}
+
+/* Normal board: 1-8 */
+
+.square:nth-child(8n+1)::before {
+    content: attr(data-rank);
+
+    top: 2px;
+    left: 4px;
+}
+
+/* Flipped board */
+
+/* Flipped board */
+.board.flipped {
+    transform: rotate(180deg);
+}
+
+.board.flipped .square {
+    transform: rotate(180deg);
+}
+
+/* Letters: bottom edge */
+.board.flipped .square:nth-child(-n+8)::after {
+    content: attr(data-file);
+
+    top: 2px;
+    right: 4px;
+    bottom: auto;
+    left: auto;
+
+    transform: rotate(180deg);
+}
+
+/* Numbers: right edge */
+.board.flipped .square:nth-child(8n+1)::before {
+    content: attr(data-rank);
+
+    bottom: 2px;
+    left: 4px;
+    top: auto;
+    right: auto;
+
+    transform: rotate(180deg);
+}
+
+/* File letters on the bottom */
+
+.board.flipped .square:nth-child(-n+8)::after {
+    content: attr(data-file);
+
+    top: 2px;
+    right: 4px;
+    bottom: auto;
+    left: auto;
+
+    transform: rotate(180deg);
+}
+
+/* Rank numbers on the left */
+
+.board.flipped .square:nth-child(8n)::before {
+    content: attr(data-rank);
+
+    bottom: 2px;
+    right: 4px;
+    top: auto;
+    left: auto;
+
+    transform: rotate(180deg);
+}
+
+/* ==============================
+   CONTROLS
+============================== */
+
+.controls {
+    width: 230px;
+    text-align: left;
+}
+
+button,
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 7px 0;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button {
+    background: #70d6a5;
+    color: #17191f;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #55bd8c;
+}
+
+select {
+    background: white;
+    color: #17191f;
+}
+
+/* ==============================
+   STATUS AND EVALUATION
+============================== */
+
+#status {
+    font-weight: bold;
+}
+
+#evaluation {
+    background: #252a33;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #70d6a5;
+    font-weight: bold;
+}
+
+/* ==============================
+   MOVE HISTORY
+============================== */
+
+#history {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-left: 25px;
+}
+
+/* ==============================
+   CAPTURED PIECES
+============================== */
+
+.captured-section {
+    background: #252a33;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.captured-pieces {
+    min-height: 35px;
+    font-size: 25px;
+    letter-spacing: 3px;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+
+@media (max-width: 700px) {
+    body {
+        padding: 15px;
+    }
+
+    .game {
+        gap: 20px;
+    }
+
+    .board {
+        width: min(92vw, 480px);
+    }
+
+    .controls {
+        width: min(92vw, 480px);
+    }
+}
